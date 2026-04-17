@@ -2036,14 +2036,13 @@
 
   /* ── Form submission ──────────────────────────────────────────────── */
   // ┌─────────────────────────────────────────────────────────────────┐
-  // │ CONFIGURE THESE TWO VALUES before deploying:                    │
-  // │  GITHUB_USERNAME  — your GitHub username                        │
-  // │  GITHUB_REPO      — the repository name (e.g. zbml-website)    │
-  // │  GITHUB_PAT       — fine-scoped PAT with public_repo scope only │
+  // │ CONFIGURE THIS ONE VALUE before deploying:                      │
+  // │  WORKER_URL — the Cloudflare Worker URL you get after deploying │
+  // │  the worker. Looks like:                                        │
+  // │  https://zbml-contact.YOUR-SUBDOMAIN.workers.dev                │
+  // │  This is NOT a secret — safe to commit in source code.          │
   // └─────────────────────────────────────────────────────────────────┘
-  const GITHUB_USERNAME = 'jer251997';
-  const GITHUB_REPO     = 'zbml-music';
-  const GITHUB_PAT      = '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';
+  const WORKER_URL = 'https://zbml-contact.YOUR-SUBDOMAIN.workers.dev';
 
   async function handleSubmit() {
     const fname      = document.getElementById('fname').value.trim();
@@ -2055,41 +2054,32 @@
     const message    = document.getElementById('message').value.trim();
 
     // ── Validation ────────────────────────────────────────────────────
-    if (!fname)                        { showToast('Please enter your first name.');        return; }
-    if (!email || !email.includes('@')) { showToast('Please enter a valid email address.'); return; }
-    if (!instrument)                   { showToast('Please select an instrument.');         return; }
+    if (!fname)                         { showToast('Please enter your first name.');        return; }
+    if (!email || !email.includes('@'))  { showToast('Please enter a valid email address.'); return; }
+    if (!instrument)                    { showToast('Please select an instrument.');         return; }
 
     const btn = document.getElementById('submitBtn');
     btn.textContent = 'Sending…';
     btn.disabled = true;
 
     try {
-      const res = await fetch(
-        `https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/dispatches`,
-        {
-          method: 'POST',
-          headers: {
-            'Accept':        'application/vnd.github.v3+json',
-            'Authorization': `token ${GITHUB_PAT}`,
-            'Content-Type':  'application/json'
-          },
-          body: JSON.stringify({
-            event_type: 'contact_form_submission',
-            client_payload: {
-              name:       `${fname} ${lname}`.trim(),
-              email:      email,
-              phone:      phone  || 'Not provided',
-              instrument: instrument,
-              format:     format || 'Not specified',
-              message:    message || 'No message provided',
-              submitted:  new Date().toLocaleString('en-US', { timeZone: 'America/New_York' })
-            }
-          })
-        }
-      );
+      const res = await fetch(WORKER_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name:       `${fname} ${lname}`.trim(),
+          email:      email,
+          phone:      phone      || 'Not provided',
+          instrument: instrument,
+          format:     format     || 'Not specified',
+          message:    message    || 'No message provided',
+          submitted:  new Date().toLocaleString('en-US', { timeZone: 'America/New_York' })
+        })
+      });
 
-      // GitHub returns 204 No Content on success
-      if (res.status === 204) {
+      const text = await res.text();
+
+      if (res.ok && text === 'ok') {
         btn.textContent = '✓ Message Sent!';
         btn.style.background = 'var(--sage)';
         showToast("Message sent! We'll be in touch soon.");
@@ -2099,7 +2089,7 @@
         document.getElementById('instrument').selectedIndex = 0;
         document.getElementById('format').selectedIndex = 0;
       } else {
-        throw new Error(`GitHub API returned ${res.status}`);
+        throw new Error(`Worker returned: ${text}`);
       }
 
     } catch (err) {
