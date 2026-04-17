@@ -1067,6 +1067,35 @@
     .section-header-centered { text-align: center; }
     .section-header-centered .gold-rule { margin: 12px auto 0; }
 
+    /* ─── BLOG PREVIEW CARDS ────────────────────────────────────────── */
+.blog-preview-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
+@media (min-width: 600px) { .blog-preview-grid { grid-template-columns: 1fr 1fr 1fr !important; } }
+.blog-preview-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: stretch;
+  transition: box-shadow var(--transition), transform var(--transition);
+  text-decoration: none;
+}
+.blog-preview-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+.blog-preview-icon {
+  width: 72px;
+  flex-shrink: 0;
+  background: var(--gold-pale);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+}
+.blog-preview-body { padding: 18px 16px; flex: 1; }
+.blog-preview-cat { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); }
+.blog-preview-title { font-family: var(--ff-display); font-size: 1.05rem; font-weight: 600; color: var(--ink); margin-top: 4px; line-height: 1.3; }
+.blog-preview-excerpt { font-size: 0.82rem; color: var(--ink-soft); margin-top: 6px; line-height: 1.55; }
+.blog-preview-meta { display: block; font-size: 0.72rem; color: var(--ink-muted); margin-top: 10px; }
+
     /* ─── TOAST ──────────────────────────────────────────────────────── */
     #toast {
       position: fixed;
@@ -1154,6 +1183,7 @@
   <a href="#instructors"  onclick="closeMenu()">Instructors</a>
   <a href="#pricing"      onclick="closeMenu()">Pricing</a>
   <a href="#testimonials" onclick="closeMenu()">Reviews</a>
+  <a href="/blog" onclick="closeMenu()">Blog</a>
   <a href="#contact"      onclick="closeMenu()">Contact</a>
   <div class="mobile-menu-cta">
     <a href="#contact" class="btn btn-primary" onclick="closeMenu()">Book a Free Intro Lesson</a>
@@ -1782,6 +1812,60 @@
       <a href="https://maps.app.goo.gl/J9YgN8NYvvnwYoCG8" target="_blank" rel="noopener" class="google-link">
         ⭐ See all reviews on Google →
       </a>
+    </div>
+  </div>
+</section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- BLOG PREVIEW                                                        -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<section id="blog-preview" class="section section--cream-dark">
+  <div class="container">
+    <div class="section-header section-header-centered reveal">
+      <p class="eyebrow">From the Studio</p>
+      <h2 class="display-lg mt-sm">Latest from the Blog</h2>
+      <p class="body-lg mt-md" style="max-width:480px;margin:12px auto 0">
+        Studio news, music tips, gear picks, and highlights from the ZBML team.
+      </p>
+      <div class="gold-rule mt-md" style="margin:16px auto 0"></div>
+    </div>
+
+    <div class="blog-preview-grid" style="margin-top:40px;">
+
+      <a href="/posts/looking-for-a-new-or-used-instrument.html" class="blog-preview-card reveal">
+        <div class="blog-preview-icon">🎸</div>
+        <div class="blog-preview-body">
+          <span class="blog-preview-cat">Studio News</span>
+          <div class="blog-preview-title">Looking for a New or Used Instrument? Look No Further!</div>
+          <p class="blog-preview-excerpt">Top-notch used gear, staff who speak fluent music, and owners I've known for over a decade.</p>
+          <span class="blog-preview-meta">Zack Boland · March 2, 2020</span>
+        </div>
+      </a>
+
+      <a href="/posts/team-building-with-percussion-at-gsu.html" class="blog-preview-card reveal reveal-delay-1">
+        <div class="blog-preview-icon">🥁</div>
+        <div class="blog-preview-body">
+          <span class="blog-preview-cat">Highlights</span>
+          <div class="blog-preview-title">Team Building with Percussion at GSU!</div>
+          <p class="blog-preview-excerpt">Leading a percussion ice-breaker for GSU's International Business Case Competition — not your parents' drum circle.</p>
+          <span class="blog-preview-meta">Zack Boland · February 28, 2020</span>
+        </div>
+      </a>
+
+      <a href="/posts/dream-cymbals.html" class="blog-preview-card reveal reveal-delay-2">
+        <div class="blog-preview-icon">🎶</div>
+        <div class="blog-preview-body">
+          <span class="blog-preview-cat">Gear</span>
+          <div class="blog-preview-title">I'm Very Proud to Play... Dream Cymbals!</div>
+          <p class="blog-preview-excerpt">It takes something truly impressive to make me switch things up. The Dream Bliss series absolutely did it.</p>
+          <span class="blog-preview-meta">Zack Boland · January 20, 2020</span>
+        </div>
+      </a>
+
+    </div>
+
+    <div style="text-align:center;margin-top:36px;" class="reveal">
+      <a href="/blog" class="btn btn-outline">View All Posts →</a>
     </div>
   </div>
 </section>
