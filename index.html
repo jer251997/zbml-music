@@ -1,0 +1,2122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zack Boland Music Lessons — Lawrenceville, GA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── DESIGN TOKENS ─────────────────────────────────────────────── */
+    :root {
+      --ink:        #1A0F2E;   /* deep eggplant purple  */
+      --ink-soft:   #3D2F5A;   /* mid purple-brown      */
+      --ink-muted:  #7A6E96;   /* muted lavender        */
+      --cream:      #F7F5FC;   /* purple-tinted off-white*/
+      --cream-dark: #EDE8F7;   /* light lavender wash   */
+      --gold:       #2D7A50;   /* forest green (primary)*/
+      --gold-light: #4AB872;   /* lighter green accent  */
+      --gold-pale:  #E5F5EC;   /* pale green tint       */
+      --sage:       #6B4FA8;   /* violet (secondary)    */
+      --sage-pale:  #EDE6FA;   /* pale violet tint      */
+      --white:      #FFFFFF;
+
+      --ff-display: 'Cormorant Garamond', Georgia, serif;
+      --ff-body:    'DM Sans', sans-serif;
+
+      --radius-sm:  6px;
+      --radius-md:  12px;
+      --radius-lg:  20px;
+
+      --shadow-sm:  0 1px 4px rgba(26,15,46,0.10);
+      --shadow-md:  0 4px 20px rgba(26,15,46,0.13);
+      --shadow-lg:  0 12px 48px rgba(26,15,46,0.18);
+
+      --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    /* ─── RESET ─────────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: var(--ff-body);
+      background: var(--cream);
+      color: var(--ink);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; border: none; background: none; font-family: inherit; }
+    ul { list-style: none; }
+
+    /* ─── TYPOGRAPHY SCALE ──────────────────────────────────────────── */
+    .display-xl {
+      font-family: var(--ff-display);
+      font-size: clamp(2.6rem, 8vw, 5rem);
+      font-weight: 600;
+      line-height: 1.08;
+      letter-spacing: -0.01em;
+    }
+    .display-lg {
+      font-family: var(--ff-display);
+      font-size: clamp(2rem, 6vw, 3.4rem);
+      font-weight: 600;
+      line-height: 1.12;
+    }
+    .display-md {
+      font-family: var(--ff-display);
+      font-size: clamp(1.5rem, 4vw, 2.2rem);
+      font-weight: 500;
+      line-height: 1.2;
+    }
+    .eyebrow {
+      font-family: var(--ff-body);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .body-lg  { font-size: 1.05rem; line-height: 1.7; color: var(--ink-soft); }
+    .body-md  { font-size: 0.95rem; line-height: 1.65; color: var(--ink-soft); }
+    .body-sm  { font-size: 0.84rem; line-height: 1.6;  color: var(--ink-muted); }
+
+    /* ─── LAYOUT UTILITIES ──────────────────────────────────────────── */
+    .container { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+    .section { padding: 72px 0; }
+    .section--dark { background: var(--ink); color: var(--cream); }
+    .section--cream-dark { background: var(--cream-dark); }
+    .section--sage { background: var(--sage-pale); }
+    .section--gold { background: var(--gold-pale); }
+
+    .flex-center { display: flex; align-items: center; justify-content: center; }
+    .gap-xs { gap: 8px; }
+    .gap-sm { gap: 16px; }
+    .gap-md { gap: 24px; }
+    .gap-lg { gap: 40px; }
+    .stack { display: flex; flex-direction: column; }
+    .stack-sm { gap: 8px; }
+    .stack-md { gap: 16px; }
+    .stack-lg { gap: 24px; }
+
+    .text-center { text-align: center; }
+    .mt-xs { margin-top: 8px; }
+    .mt-sm { margin-top: 12px; }
+    .mt-md { margin-top: 20px; }
+    .mt-lg { margin-top: 32px; }
+    .mt-xl { margin-top: 48px; }
+
+    /* ─── SCROLL REVEAL ─────────────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ─── BUTTONS ────────────────────────────────────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: var(--radius-sm);
+      font-family: var(--ff-body);
+      font-size: 0.92rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      transition: var(--transition);
+      white-space: nowrap;
+    }
+    .btn-primary {
+      background: var(--gold);
+      color: var(--white);
+      box-shadow: 0 2px 12px rgba(45,122,80,0.35);
+    }
+    .btn-primary:hover { background: #256642; box-shadow: 0 4px 20px rgba(45,122,80,0.45); transform: translateY(-1px); }
+    .btn-secondary {
+      background: transparent;
+      color: var(--white);
+      border: 1.5px solid rgba(255,255,255,0.55);
+    }
+    .btn-secondary:hover { border-color: var(--white); background: rgba(255,255,255,0.1); }
+    .btn-outline {
+      background: transparent;
+      color: var(--gold);
+      border: 1.5px solid var(--gold);
+    }
+    .btn-outline:hover { background: var(--gold); color: var(--white); }
+    .btn-dark {
+      background: var(--ink);
+      color: var(--cream);
+    }
+    .btn-dark:hover { background: #2e2b26; transform: translateY(-1px); }
+    .btn-sm { padding: 10px 20px; font-size: 0.84rem; }
+    .btn-full { width: 100%; }
+
+    /* ─── DIVIDER ────────────────────────────────────────────────────── */
+    .gold-rule {
+      width: 48px;
+      height: 2px;
+      background: var(--gold);
+      border-radius: 2px;
+    }
+
+    /* ─── NAV ────────────────────────────────────────────────────────── */
+    #nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: transparent;
+      transition: background 0.4s ease, backdrop-filter 0.4s ease, box-shadow 0.4s ease;
+    }
+    #nav.scrolled {
+      background: rgba(26,15,46,0.93);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 1px 0 rgba(255,255,255,0.06);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+    .nav-logo {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+    .nav-logo-mark {
+      font-family: var(--ff-display);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 0.04em;
+      line-height: 1;
+    }
+    .nav-logo-sub {
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      font-weight: 500;
+    }
+    .nav-links {
+      display: none;
+      gap: 28px;
+      align-items: center;
+    }
+    .nav-links a {
+      color: rgba(255,255,255,0.82);
+      font-size: 0.88rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      transition: color var(--transition);
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta { display: none; }
+    .hamburger {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      cursor: pointer;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--white);
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    /* Mobile menu */
+    #mobile-menu {
+      position: fixed;
+      inset: 0;
+      background: var(--ink);
+      z-index: 99;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    #mobile-menu.open { opacity: 1; pointer-events: all; }
+    #mobile-menu a {
+      font-family: var(--ff-display);
+      font-size: 2rem;
+      font-weight: 500;
+      color: var(--cream);
+      padding: 8px 20px;
+      transition: color var(--transition);
+    }
+    #mobile-menu a:hover { color: var(--gold-light); }
+    .mobile-menu-cta { margin-top: 20px; }
+    .mobile-contact-strip {
+      position: absolute;
+      bottom: 36px;
+      text-align: center;
+    }
+    .mobile-contact-strip p { font-size: 0.84rem; color: var(--ink-muted); }
+    .mobile-contact-strip a { color: var(--gold-light); font-weight: 500; }
+
+    @media (min-width: 768px) {
+      .nav-links { display: flex; }
+      .nav-cta { display: inline-flex; }
+      .hamburger { display: none; }
+    }
+
+    /* ─── HERO ───────────────────────────────────────────────────────── */
+    #hero {
+      position: relative;
+      min-height: 100svh;
+      display: flex;
+      align-items: flex-end;
+      padding-bottom: 72px;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to bottom, rgba(26,15,46,0.35) 0%, rgba(26,15,46,0.75) 65%, rgba(26,15,46,0.92) 100%),
+        /* Purple-dark gradient as image placeholder */
+        radial-gradient(ellipse at 30% 40%, #2d1a4e 0%, #1a0f2e 40%, #0d0819 100%);
+      background-size: cover;
+      background-position: center;
+    }
+    /* Decorative music staff lines */
+    .hero-staff {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      opacity: 0.06;
+    }
+    .hero-staff::before {
+      content: '';
+      position: absolute;
+      top: 35%;
+      left: 0; right: 0;
+      height: 60px;
+      background: repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        transparent 10px,
+        rgba(255,255,255,0.8) 10px,
+        rgba(255,255,255,0.8) 11px,
+        transparent 11px,
+        transparent 25px
+      );
+    }
+    .hero-noise {
+      position: absolute;
+      inset: 0;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+      background-size: 200px;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      color: var(--white);
+    }
+    .hero-established {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(45,122,80,0.18);
+      border: 1px solid rgba(45,122,80,0.45);
+      border-radius: 100px;
+      padding: 6px 14px;
+      margin-bottom: 24px;
+    }
+    .hero-established span { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-light); }
+    .hero-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); }
+    .hero-headline { color: var(--white); }
+    .hero-headline em { font-style: italic; color: var(--gold-light); }
+    .hero-sub {
+      font-size: 1.05rem;
+      color: rgba(250,247,242,0.78);
+      line-height: 1.65;
+      max-width: 520px;
+      margin-top: 16px;
+    }
+    .hero-ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 32px;
+    }
+    .hero-meta {
+      margin-top: 40px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+    .hero-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .hero-meta-icon { font-size: 1rem; opacity: 0.7; }
+    .hero-meta-text { font-size: 0.84rem; color: rgba(250,247,242,0.72); }
+    .hero-meta-text a { color: var(--gold-light); text-decoration: underline; text-underline-offset: 3px; }
+    .hero-scroll {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      opacity: 0.45;
+      animation: bounce 2s ease-in-out infinite;
+    }
+    .hero-scroll span { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cream); }
+    .hero-scroll-arrow { width: 16px; height: 16px; border-right: 1.5px solid var(--cream); border-bottom: 1.5px solid var(--cream); transform: rotate(45deg); margin-top: -4px; }
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(6px); }
+    }
+
+    /* ─── STATS BAR ──────────────────────────────────────────────────── */
+    #stats {
+      background: var(--ink);
+      padding: 24px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      background: rgba(255,255,255,0.08);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+    .stat-item {
+      background: var(--ink);
+      padding: 20px 16px;
+      text-align: center;
+    }
+    .stat-number {
+      font-family: var(--ff-display);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--gold-light);
+      line-height: 1;
+    }
+    .stat-label { font-size: 0.75rem; color: rgba(250,247,242,0.55); margin-top: 4px; letter-spacing: 0.06em; text-transform: uppercase; }
+    @media (min-width: 600px) {
+      .stats-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+
+    /* ─── ABOUT ──────────────────────────────────────────────────────── */
+    #about .about-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+    .about-img-wrap {
+      position: relative;
+    }
+    .about-img-placeholder {
+      width: 100%;
+      aspect-ratio: 4/5;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(135deg, #2a1a42 0%, #1a0f2e 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .about-img-inner {
+      text-align: center;
+      color: rgba(250,247,242,0.25);
+    }
+    .about-img-inner .photo-note { font-size: 0.78rem; margin-top: 8px; }
+    .about-img-placeholder-icon { font-size: 3rem; }
+    .about-accent-card {
+      position: absolute;
+      bottom: -20px;
+      right: -12px;
+      background: var(--gold);
+      color: var(--white);
+      padding: 16px 20px;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-lg);
+    }
+    .about-accent-card .number { font-family: var(--ff-display); font-size: 1.8rem; font-weight: 700; line-height: 1; }
+    .about-accent-card .label  { font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.88; margin-top: 2px; }
+    .values-row {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 16px;
+      margin-top: 28px;
+    }
+    .value-card {
+      background: var(--cream-dark);
+      border-radius: var(--radius-md);
+      padding: 18px 14px;
+      text-align: center;
+    }
+    .value-card .icon { font-size: 1.5rem; }
+    .value-card .label { font-size: 0.78rem; font-weight: 600; color: var(--ink); margin-top: 8px; }
+    @media (min-width: 768px) {
+      #about .about-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* ─── LESSONS ────────────────────────────────────────────────────── */
+    #lessons .lessons-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      margin-top: 40px;
+    }
+    .lesson-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow var(--transition), transform var(--transition);
+      display: flex;
+      align-items: stretch;
+    }
+    .lesson-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+    .lesson-card-icon-col {
+      width: 80px;
+      flex-shrink: 0;
+      background: var(--gold-pale);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+    }
+    .lesson-card-body {
+      padding: 20px 18px;
+      flex: 1;
+    }
+    .lesson-card-body h3 {
+      font-family: var(--ff-display);
+      font-size: 1.2rem;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+    .lesson-card-body p { font-size: 0.85rem; color: var(--ink-soft); margin-top: 6px; }
+    .lesson-card-body .lesson-tag {
+      display: inline-block;
+      margin-top: 10px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--sage);
+      background: var(--sage-pale);
+      padding: 3px 10px;
+      border-radius: 100px;
+    }
+    @media (min-width: 600px) {
+      #lessons .lessons-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (min-width: 900px) {
+      #lessons .lessons-grid { grid-template-columns: 1fr 1fr 1fr; }
+    }
+
+    /* ─── INSTRUCTORS ────────────────────────────────────────────────── */
+    #instructors .instructors-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      margin-top: 40px;
+    }
+    .instructor-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow var(--transition), transform var(--transition);
+    }
+    .instructor-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
+    .instructor-img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      background: linear-gradient(135deg, var(--cream-dark) 0%, #e0d9cd 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+    .instructor-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+    }
+    .instructor-instruments {
+      position: absolute;
+      bottom: 12px; left: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .instrument-chip {
+      background: rgba(26,15,46,0.78);
+      backdrop-filter: blur(6px);
+      color: var(--cream);
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 100px;
+    }
+    .instructor-body { padding: 20px; }
+    .instructor-body h3 {
+      font-family: var(--ff-display);
+      font-size: 1.35rem;
+      font-weight: 600;
+    }
+    .instructor-role { font-size: 0.8rem; color: var(--gold); font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; margin-top: 2px; }
+    .instructor-bio { font-size: 0.88rem; color: var(--ink-soft); line-height: 1.65; margin-top: 12px; }
+    .instructor-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 14px;
+    }
+    .badge {
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 100px;
+      background: var(--sage-pale);
+      color: var(--sage);
+    }
+    @media (min-width: 600px) {
+      #instructors .instructors-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (min-width: 900px) {
+      #instructors .instructors-grid { grid-template-columns: 1fr 1fr 1fr; }
+    }
+
+    /* ─── HOW IT WORKS ──────────────────────────────────────────────── */
+    #how-it-works .steps {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+      margin-top: 40px;
+      position: relative;
+    }
+    .step {
+      display: flex;
+      gap: 20px;
+      padding: 0 0 40px 0;
+      position: relative;
+    }
+    .step:last-child { padding-bottom: 0; }
+    .step-line {
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .step-num {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--gold);
+      color: var(--white);
+      font-family: var(--ff-display);
+      font-size: 1.2rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .step-connector {
+      width: 2px;
+      flex: 1;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+      margin-top: 8px;
+      min-height: 32px;
+    }
+    .step:last-child .step-connector { display: none; }
+    .step-content { padding-top: 8px; }
+    .step-content h3 {
+      font-family: var(--ff-display);
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+    .step-content p { font-size: 0.9rem; color: var(--ink-soft); margin-top: 6px; }
+    @media (min-width: 768px) {
+      #how-it-works .steps { grid-template-columns: repeat(4,1fr); gap: 0; }
+      .step { flex-direction: column; padding-bottom: 0; }
+      .step-line { flex-direction: row; }
+      .step-connector { width: 100%; height: 2px; flex: 1; background: linear-gradient(to right, var(--gold), transparent); margin-top: 0; margin-left: 8px; min-height: unset; }
+    }
+
+    /* ─── PRICING ────────────────────────────────────────────────────── */
+    #pricing .pricing-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      margin-top: 40px;
+    }
+    .pricing-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 32px 28px;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      border: 2px solid transparent;
+      transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
+    }
+    .pricing-card:hover { border-color: var(--gold); box-shadow: var(--shadow-md); transform: translateY(-2px); }
+    .pricing-card.featured {
+      border-color: var(--gold);
+      box-shadow: var(--shadow-md);
+    }
+    .pricing-badge {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--gold);
+      color: var(--white);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 14px;
+      border-radius: 100px;
+      white-space: nowrap;
+    }
+    .pricing-icon { font-size: 2rem; }
+    .pricing-name {
+      font-family: var(--ff-display);
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-top: 10px;
+    }
+    .pricing-desc { font-size: 0.85rem; color: var(--ink-soft); margin-top: 6px; }
+    .pricing-divider { height: 1px; background: var(--cream-dark); margin: 20px 0; }
+    .pricing-features { display: flex; flex-direction: column; gap: 10px; }
+    .pricing-feature {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.88rem;
+      color: var(--ink-soft);
+    }
+    .pricing-feature-check { color: var(--gold); flex-shrink: 0; font-weight: 700; margin-top: 1px; }
+    .pricing-cta { margin-top: 24px; }
+    .pricing-note { text-align: center; margin-top: 24px; font-size: 0.84rem; color: var(--ink-muted); }
+    @media (min-width: 768px) {
+      #pricing .pricing-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    /* ─── TESTIMONIALS ───────────────────────────────────────────────── */
+    #testimonials {
+      overflow: hidden;
+    }
+    .testimonials-track-wrap {
+      overflow: hidden;
+      margin-top: 40px;
+      cursor: grab;
+      user-select: none;
+    }
+    .testimonials-track-wrap:active { cursor: grabbing; }
+    .testimonials-track {
+      display: flex;
+      gap: 20px;
+      transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+    }
+    .testimonial-card {
+      min-width: calc(100vw - 56px);
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+      box-shadow: var(--shadow-sm);
+      flex-shrink: 0;
+      position: relative;
+    }
+    .testimonial-quote-mark {
+      font-family: var(--ff-display);
+      font-size: 5rem;
+      line-height: 0.7;
+      color: var(--gold-pale);
+      position: absolute;
+      top: 18px;
+      left: 20px;
+      font-weight: 700;
+      pointer-events: none;
+    }
+    .testimonial-stars {
+      display: flex;
+      gap: 3px;
+      margin-bottom: 16px;
+    }
+    .star { color: var(--gold); font-size: 0.9rem; }
+    .testimonial-text {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: var(--ink-soft);
+      position: relative;
+      z-index: 1;
+    }
+    .testimonial-author {
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .testimonial-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--cream-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--ff-display);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+    .testimonial-name { font-weight: 600; font-size: 0.9rem; }
+    .testimonial-detail { font-size: 0.78rem; color: var(--ink-muted); }
+    .testimonials-nav {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 24px;
+      justify-content: center;
+    }
+    .t-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--cream-dark);
+      cursor: pointer;
+      transition: background var(--transition), transform var(--transition);
+    }
+    .t-dot.active { background: var(--gold); transform: scale(1.2); }
+    .t-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1.5px solid var(--cream-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      color: var(--ink-soft);
+      transition: border-color var(--transition), color var(--transition);
+    }
+    .t-btn:hover { border-color: var(--gold); color: var(--gold); }
+    .google-link-wrap { text-align: center; margin-top: 32px; }
+    .google-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--gold);
+      border-bottom: 1px solid transparent;
+      transition: border-color var(--transition);
+      padding-bottom: 2px;
+    }
+    .google-link:hover { border-color: var(--gold); }
+    @media (min-width: 600px) {
+      .testimonial-card { min-width: 360px; }
+    }
+
+    /* ─── CTA BAND ───────────────────────────────────────────────────── */
+    #cta-band {
+      background: var(--ink);
+      padding: 72px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-band-bg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 70% 50%, rgba(45,122,80,0.15) 0%, transparent 65%);
+    }
+    .cta-band-content { position: relative; z-index: 1; text-align: center; }
+    .cta-band-content h2 { color: var(--cream); }
+    .cta-band-content p { color: rgba(250,247,242,0.65); max-width: 520px; margin: 12px auto 0; }
+    .cta-band-btns { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 32px; }
+
+    /* ─── CONTACT ────────────────────────────────────────────────────── */
+    #contact .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+      margin-top: 40px;
+    }
+    .contact-cards { display: flex; flex-direction: column; gap: 16px; }
+    .contact-card {
+      background: var(--cream-dark);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      transition: box-shadow var(--transition);
+    }
+    .contact-card:hover { box-shadow: var(--shadow-sm); }
+    .contact-card-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-sm);
+      background: var(--gold);
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .contact-card-label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted); }
+    .contact-card-value { font-size: 0.95rem; font-weight: 500; color: var(--ink); margin-top: 2px; }
+    .contact-card-value a { color: var(--ink); }
+    .contact-card-value a:hover { color: var(--gold); }
+    .contact-form { background: var(--white); border-radius: var(--radius-lg); padding: 32px 24px; box-shadow: var(--shadow-sm); }
+    .contact-form h3 { font-family: var(--ff-display); font-size: 1.4rem; font-weight: 600; }
+    .contact-form p { font-size: 0.88rem; color: var(--ink-soft); margin-top: 6px; }
+    .form-fields { display: flex; flex-direction: column; gap: 14px; margin-top: 24px; }
+    .form-row { display: grid; grid-template-columns: 1fr; gap: 14px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group label { font-size: 0.8rem; font-weight: 600; color: var(--ink-soft); letter-spacing: 0.04em; }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: var(--cream);
+      border: 1.5px solid var(--cream-dark);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      font-family: var(--ff-body);
+      font-size: 0.92rem;
+      color: var(--ink);
+      transition: border-color var(--transition), box-shadow var(--transition);
+      outline: none;
+      -webkit-appearance: none;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(45,122,80,0.15);
+    }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+    .form-group select { cursor: pointer; }
+    .form-submit-row { margin-top: 8px; }
+    @media (min-width: 600px) {
+      .form-row { grid-template-columns: 1fr 1fr; }
+    }
+    @media (min-width: 900px) {
+      #contact .contact-grid { grid-template-columns: 1fr 1.4fr; }
+    }
+
+    /* ─── FOOTER ─────────────────────────────────────────────────────── */
+    #footer {
+      background: #0e0819;
+      padding: 56px 0 32px;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .footer-brand-mark {
+      font-family: var(--ff-display);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--cream);
+      line-height: 1;
+    }
+    .footer-brand-sub {
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-top: 4px;
+    }
+    .footer-brand-desc {
+      font-size: 0.86rem;
+      color: rgba(250,247,242,0.45);
+      margin-top: 16px;
+      line-height: 1.6;
+      max-width: 260px;
+    }
+    .footer-socials {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .social-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-sm);
+      background: rgba(255,255,255,0.07);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      color: rgba(250,247,242,0.6);
+      transition: background var(--transition), color var(--transition);
+    }
+    .social-btn:hover { background: var(--gold); color: var(--white); }
+    .footer-col-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(250,247,242,0.4);
+      margin-bottom: 16px;
+    }
+    .footer-links { display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a {
+      font-size: 0.88rem;
+      color: rgba(250,247,242,0.6);
+      transition: color var(--transition);
+    }
+    .footer-links a:hover { color: var(--cream); }
+    .footer-contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.86rem;
+      color: rgba(250,247,242,0.6);
+      margin-bottom: 12px;
+    }
+    .footer-contact-icon { color: var(--gold); flex-shrink: 0; margin-top: 2px; }
+    .footer-contact-item a { color: rgba(250,247,242,0.6); }
+    .footer-contact-item a:hover { color: var(--cream); }
+    .footer-bottom {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: center;
+      text-align: center;
+      padding-top: 28px;
+    }
+    .footer-bottom p { font-size: 0.78rem; color: rgba(250,247,242,0.3); }
+    @media (min-width: 600px) {
+      .footer-top { grid-template-columns: 1.5fr 1fr 1fr; }
+    }
+    @media (min-width: 900px) {
+      .footer-top { grid-template-columns: 1.8fr 1fr 1fr 1.2fr; }
+    }
+
+    /* ─── SECTION HEADER ────────────────────────────────────────────── */
+    .section-header { margin-bottom: 8px; }
+    .section-header-centered { text-align: center; }
+    .section-header-centered .gold-rule { margin: 12px auto 0; }
+
+    /* ─── TOAST ──────────────────────────────────────────────────────── */
+    #toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: var(--ink);
+      color: var(--cream);
+      padding: 12px 24px;
+      border-radius: 100px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      box-shadow: var(--shadow-lg);
+      transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+      z-index: 200;
+      white-space: nowrap;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    #toast.show { transform: translateX(-50%) translateY(0); }
+
+    /* ─── PHONE STRIP ────────────────────────────────────────────────── */
+    #phone-strip {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 90;
+      background: var(--gold);
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      box-shadow: 0 -2px 20px rgba(0,0,0,0.2);
+    }
+    #phone-strip a {
+      color: var(--white);
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.04em;
+    }
+    #phone-strip span { color: rgba(255,255,255,0.7); font-size: 0.88rem; }
+    #phone-strip .close-strip {
+      position: absolute;
+      right: 14px;
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.6);
+      font-size: 1.1rem;
+      cursor: pointer;
+      line-height: 1;
+    }
+    @media (min-width: 768px) { #phone-strip { display: none; } }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- NAV                                                                 -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<nav id="nav">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-logo">
+        <div class="nav-logo-mark">ZBML</div>
+        <div class="nav-logo-sub">Music Lessons</div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#lessons">Lessons</a></li>
+        <li><a href="#instructors">Instructors</a></li>
+        <li><a href="#testimonials">Reviews</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <a href="#contact" class="btn btn-primary btn-sm nav-cta">Book a Lesson</a>
+      <div class="hamburger" id="hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile menu -->
+<div id="mobile-menu">
+  <a href="#about"        onclick="closeMenu()">About</a>
+  <a href="#lessons"      onclick="closeMenu()">Lessons</a>
+  <a href="#instructors"  onclick="closeMenu()">Instructors</a>
+  <a href="#pricing"      onclick="closeMenu()">Pricing</a>
+  <a href="#testimonials" onclick="closeMenu()">Reviews</a>
+  <a href="#contact"      onclick="closeMenu()">Contact</a>
+  <div class="mobile-menu-cta">
+    <a href="#contact" class="btn btn-primary" onclick="closeMenu()">Book a Free Intro Lesson</a>
+  </div>
+  <div class="mobile-contact-strip">
+    <p>Call or text us anytime</p>
+    <a href="tel:+14705962475">(470) 596-2475</a>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- HERO                                                                -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-staff"></div>
+  <div class="hero-noise"></div>
+
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-established reveal">
+        <div class="hero-dot"></div>
+        <span>Est. 2008 &nbsp;·&nbsp; Lawrenceville, GA</span>
+        <div class="hero-dot"></div>
+      </div>
+
+      <h1 class="display-xl hero-headline reveal reveal-delay-1">
+        Music Lessons<br>
+        for <em>Every Age,</em><br>
+        Every Stage.
+      </h1>
+
+      <p class="hero-sub reveal reveal-delay-2">
+        Private instruction in drums, guitar, piano, vocals, and more —
+        in our Lawrenceville studio, online, or in your home.
+      </p>
+
+      <div class="hero-ctas reveal reveal-delay-3">
+        <a href="#contact" class="btn btn-primary">Book a Free Intro Lesson</a>
+        <a href="#instructors" class="btn btn-secondary">Meet Our Instructors</a>
+      </div>
+
+      <div class="hero-meta reveal reveal-delay-4">
+        <div class="hero-meta-item">
+          <span class="hero-meta-icon">📍</span>
+          <span class="hero-meta-text">308 N Clayton St, Lawrenceville GA</span>
+        </div>
+        <div class="hero-meta-item">
+          <span class="hero-meta-icon">📞</span>
+          <span class="hero-meta-text"><a href="tel:+14705962475">(470) 596-2475</a></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="hero-scroll-arrow"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- STATS BAR                                                           -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div id="stats">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item reveal">
+        <div class="stat-number">16+</div>
+        <div class="stat-label">Years Teaching</div>
+      </div>
+      <div class="stat-item reveal reveal-delay-1">
+        <div class="stat-number">6</div>
+        <div class="stat-label">Expert Instructors</div>
+      </div>
+      <div class="stat-item reveal reveal-delay-2">
+        <div class="stat-number">5+</div>
+        <div class="stat-label">Instruments Offered</div>
+      </div>
+      <div class="stat-item reveal reveal-delay-3">
+        <div class="stat-number">3</div>
+        <div class="stat-label">Ways to Learn</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- ABOUT                                                               -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<section id="about" class="section">
+  <div class="container">
+    <div class="about-grid">
+
+      <div class="about-img-wrap reveal">
+        <div class="about-img-placeholder">
+          <div class="about-img-inner">
+            <div class="about-img-placeholder-icon">🥁</div>
+            <p class="photo-note">Zack Boland photo</p>
+          </div>
+        </div>
+        <div class="about-accent-card">
+          <div class="number">2008</div>
+          <div class="label">Year Founded</div>
+        </div>
+      </div>
+
+      <div class="reveal reveal-delay-1">
+        <div class="section-header">
+          <p class="eyebrow">About the Studio</p>
+          <h2 class="display-lg mt-sm">N.E. Atlanta's Original In-Home Music School</h2>
+          <div class="gold-rule mt-md"></div>
+        </div>
+
+        <p class="body-lg mt-md">
+          Zack Boland Music Lessons has been connecting students across Northeast Atlanta with
+          passionate, skilled instructors since 2008. Our goal is to create the music school
+          experience we wished we'd had — lessons that are <strong>fun, engaging, and uniquely
+          tailored</strong> to each student.
+        </p>
+        <p class="body-lg mt-md">
+          Whether you're a parent looking to spark a lifelong love of music in your child, or an
+          adult picking up an instrument for the first time, our team meets you exactly where you are.
+        </p>
+
+        <div class="values-row mt-lg">
+          <div class="value-card">
+            <div class="icon">🏆</div>
+            <div class="label">Professionalism</div>
+          </div>
+          <div class="value-card">
+            <div class="icon">🤝</div>
+            <div class="label">Integrity</div>
+          </div>
+          <div class="value-card">
+            <div class="icon">🌟</div>
+            <div class="label">Excellence</div>
+          </div>
+        </div>
+
+        <div class="mt-lg">
+          <a href="#contact" class="btn btn-outline">Get in Touch</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- LESSONS                                                             -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<section id="lessons" class="section section--cream-dark">
+  <div class="container">
+    <div class="section-header section-header-centered reveal">
+      <p class="eyebrow">What We Teach</p>
+      <h2 class="display-lg mt-sm">Areas of Study</h2>
+      <p class="body-lg mt-md" style="max-width:520px;margin-left:auto;margin-right:auto;">
+        All skill levels welcome — from complete beginners to students preparing for auditions and performance.
+      </p>
+      <div class="gold-rule mt-md" style="margin:16px auto 0"></div>
+    </div>
+
+    <div class="lessons-grid">
+
+      <div class="lesson-card reveal">
+        <div class="lesson-card-icon-col">🥁</div>
+        <div class="lesson-card-body">
+          <h3>Drums &amp; Percussion</h3>
+          <p>Rock, jazz, Latin, world percussion and more with Founder Zack Boland.</p>
+          <span class="lesson-tag">All Ages</span>
+        </div>
+      </div>
+
+      <div class="lesson-card reveal reveal-delay-1">
+        <div class="lesson-card-icon-col">🎸</div>
+        <div class="lesson-card-body">
+          <h3>Guitar</h3>
+          <p>Electric, acoustic, and bass — rock, jazz, blues, classical, and beyond.</p>
+          <span class="lesson-tag">All Styles</span>
+        </div>
+      </div>
+
+      <div class="lesson-card reveal reveal-delay-2">
+        <div class="lesson-card-icon-col">🎹</div>
+        <div class="lesson-card-body">
+          <h3>Piano &amp; Keyboard</h3>
+          <p>Classical foundations to contemporary performance, all levels welcome.</p>
+          <span class="lesson-tag">Beginner – Advanced</span>
+        </div>
+      </div>
+
+      <div class="lesson-card reveal reveal-delay-3">
+        <div class="lesson-card-icon-col">🎤</div>
+        <div class="lesson-card-body">
+          <h3>Vocal Lessons</h3>
+          <p>Technique, range, and performance confidence for singers of every level.</p>
+          <span class="lesson-tag">All Ages</span>
+        </div>
+      </div>
+
+      <div class="lesson-card reveal">
+        <div class="lesson-card-icon-col">🎵</div>
+        <div class="lesson-card-body">
+          <h3>Flute &amp; Saxophone</h3>
+          <p>Woodwind instruction from a 35-year performer and 20+ year educator.</p>
+          <span class="lesson-tag">School Band Ready</span>
+        </div>
+      </div>
+
+      <div class="lesson-card reveal reveal-delay-1">
+        <div class="lesson-card-icon-col">🎻</div>
+        <div class="lesson-card-body">
+          <h3>Cello &amp; Upright Bass</h3>
+          <p>Classical strings and orchestral repertoire from a GSU-trained musician.</p>
+          <span class="lesson-tag">Orchestra Prep</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- HOW IT WORKS                                                        -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<section id="how-it-works" class="section">
+  <div class="container">
+    <div class="section-header section-header-centered reveal">
+      <p class="eyebrow">Getting Started</p>
+      <h2 class="display-lg mt-sm">How It Works</h2>
+      <div class="gold-rule mt-md" style="margin:16px auto 0"></div>
+    </div>
+
+    <div class="steps">
+      <div class="step reveal">
+        <div class="step-line">
+          <div class="step-num">1</div>
+          <div class="step-connector"></div>
+        </div>
+        <div class="step-content">
+          <h3>Reach Out</h3>
+          <p>Call, text, or fill out the contact form — we respond quickly.</p>
+        </div>
+      </div>
+      <div class="step reveal reveal-delay-1">
+        <div class="step-line">
+          <div class="step-num">2</div>
+          <div class="step-connector"></div>
+        </div>
+        <div class="step-content">
+          <h3>Free Intro Lesson</h3>
+          <p>We'll match you with the right instructor and start with a complimentary session.</p>
+        </div>
+      </div>
+      <div class="step reveal reveal-delay-2">
+        <div class="step-line">
+          <div class="step-num">3</div>
+          <div class="step-connector"></div>
+        </div>
+        <div class="step-content">
+          <h3>Pick Your Format</h3>
+          <p>Studio, online, or in-home lessons — whatever fits your life best.</p>
+        </div>
+      </div>
+      <div class="step reveal reveal-delay-3">
+        <div class="step-line">
+          <div class="step-num">4</div>
+          <div class="step-connector"></div>
+        </div>
+        <div class="step-content">
+          <h3>Start Playing</h3>
+          <p>Weekly lessons, tailored to your goals. Progress starts on day one.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- INSTRUCTORS                                                         -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<section id="instructors" class="section section--dark">
+  <div class="container">
+    <div class="section-header section-header-centered reveal">
+      <p class="eyebrow" style="color:var(--gold)">The Team</p>
+      <h2 class="display-lg mt-sm" style="color:var(--cream)">Meet Your Instructors</h2>
+      <p class="body-lg mt-md" style="color:rgba(250,247,242,0.6);max-width:480px;margin:12px auto 0">
+        Experienced performers and educators who are genuinely passionate about teaching.
+      </p>
+      <div class="gold-rule mt-md" style="margin:16px auto 0"></div>
+    </div>
+
+    <div class="instructors-grid">
+
+      <div class="instructor-card reveal">
+        <div class="instructor-img">
+          <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#2d1a4e,#1a0f2e);font-size:3rem;">🥁</div>
+          <div class="instructor-instruments">
+            <span class="instrument-chip">Drums</span>
+            <span class="instrument-chip">Percussion</span>
+          </div>
+        </div>
+        <div class="instructor-body">
+          <h3>Zack Boland</h3>
+          <div class="instructor-role">Founder &amp; Lead Instructor</div>
+          <p class="instructor-bio">Graduated from the Atlanta Institute of Music and Multimedia in 2008 and has been performing, recording, and teaching in the Atlanta area ever since. He founded ZBML to build the music school experience he wished he'd had.</p>
+          <div class="instructor-badges">
+            <span class="badge">AIMM Graduate</span>
+            <span class="badge">16+ Yrs Teaching</span>
+            <span class="badge">Performer &amp; Recorder</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="instructor-card reveal reveal-delay-1">
+        <div class="instructor-img">
+          <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#163d2a,#0d2419);font-size:3rem;">🎹</div>
+          <div class="instructor-instruments">
+            <span class="instrument-chip">Piano</span>
+            <span class="instrument-chip">Vocals</span>
+          </div>
+        </div>
+        <div class="instructor-body">
+          <h3>Nabilah Hetrick</h3>
+          <div class="instructor-role">Piano &amp; Vocal Instructor</div>
+          <p class="instructor-bio">An experienced performer and educator whose teaching style centers on each student's musical interests, keeping every lesson engaging and relevant. Dedicated to helping students discover their full potential.</p>
+          <div class="instructor-badges">
+            <span class="badge">Performer</span>
+            <span class="badge">Interest-Led Teaching</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="instructor-card reveal reveal-delay-2">
+        <div class="instructor-img">
+          <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#2a1a42,#160e2a);font-size:3rem;">🎵</div>
+          <div class="instructor-instruments">
+            <span class="instrument-chip">Flute</span>
+            <span class="instrument-chip">Alto Sax</span>
+          </div>
+        </div>
+        <div class="instructor-body">
+          <h3>Amy May-Horton</h3>
+          <div class="instructor-role">Flute &amp; Alto Sax Instructor</div>
+          <p class="instructor-bio">35 years as a flutist, including the Atlanta Wind Symphony, Atlanta Concert Band, and the UGA Redcoat Band. With 20+ years of private and ensemble teaching experience, Amy is as encouraging as she is skilled.</p>
+          <div class="instructor-badges">
+            <span class="badge">Atlanta Wind Symphony</span>
+            <span class="badge">UGA Redcoat Band</span>
+            <span class="badge">20+ Yrs Teaching</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="instructor-card reveal">
+        <div class="instructor-img">
+          <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#133526,#0a1e16);font-size:3rem;">🎸</div>
+          <div class="instructor-instruments">
+            <span class="instrument-chip">Guitar</span>
+            <span class="instrument-chip">Piano</span>
+          </div>
+        </div>
+        <div class="instructor-body">
+          <h3>Kevin K.</h3>
+          <div class="instructor-role">Guitar &amp; Piano Instructor</div>
+          <p class="instructor-bio">A deeply versatile musician and educator with the rare ability to connect with students of all ages and styles. Rock, jazz, blues, heavy metal, music theory, sight-reading — Kevin covers it all.</p>
+          <div class="instructor-badges">
+            <span class="badge">Multi-Genre</span>
+            <span class="badge">Theory Specialist</span>
+            <span class="badge">All Ages</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="instructor-card reveal reveal-delay-1">
+        <div class="instructor-img">
+          <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#2a1660,#180d3a);font-size:3rem;">🎤</div>
+          <div class="instructor-instruments">
+            <span class="instrument-chip">Vocals</span>
+            <span class="instrument-chip">Guitar</span>
+            <span class="instrument-chip">Piano</span>
+          </div>
+        </div>
+        <div class="instructor-body">
+          <h3>Sloan Leavens-Russell</h3>
+          <div class="instructor-role">Vocal, Piano &amp; Guitar Instructor</div>
+          <p class="instructor-bio">A multi-instrumentalist with 8 years of teaching experience including ESL instruction. He focuses on engaging student interests while building foundational skills that last a lifetime.</p>
+          <div class="instructor-badges">
+            <span class="badge">Multi-Instrumentalist</span>
+            <span class="badge">8 Yrs Educator</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="instructor-card reveal reveal-delay-2">
+        <div class="instructor-img">
+          <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1a3d2a,#0e2018);font-size:3rem;">🎻</div>
+          <div class="instructor-instruments">
+            <span class="instrument-chip">Guitar</span>
+            <span class="instrument-chip">Cello</span>
+            <span class="instrument-chip">Bass</span>
+          </div>
+        </div>
+        <div class="instructor-body">
+          <h3>Paul Fidero</h3>
+          <div class="instructor-role">Guitar, Cello, Bass &amp; Vocal Instructor</div>
+          <p class="instructor-bio">Studied classical guitar at Georgia State University under John Sutherland and holds advanced theory training. Has worked directly with Grammy-winning producer Billy Hume in recording and band contexts.</p>
+          <div class="instructor-badges">
+            <span class="badge">GSU School of Music</span>
+            <span class="badge">Grammy-Connected</span>
+            <span class="badge">Classical Training</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- PRICING                                                             -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<section id="pricing" class="section section--sage">
+  <div class="container">
+    <div class="section-header section-header-centered reveal">
+      <p class="eyebrow">Lesson Plans</p>
+      <h2 class="display-lg mt-sm">Simple, Flexible Pricing</h2>
+      <p class="body-lg mt-md" style="max-width:480px;margin:12px auto 0">
+        No long-term contracts. Contact us for exact rates — we're happy to work with families enrolling multiple students.
+      </p>
+      <div class="gold-rule mt-md" style="margin:16px auto 0"></div>
+    </div>
+
+    <div class="pricing-grid">
+
+      <div class="pricing-card reveal">
+        <div class="pricing-icon">🎵</div>
+        <div class="pricing-name">Drop-In Lesson</div>
+        <div class="pricing-desc">Perfect for trying us out or for students with irregular schedules.</div>
+        <div class="pricing-divider"></div>
+        <div class="pricing-features">
+          <div class="pricing-feature"><span class="pricing-feature-check">✓</span> 30 or 60 minute sessions</div>
+          <div class="pricing-feature"><span class="pricing-feature-check">✓</span> Studio, online, or in-home</div>
+          <div class="pricing-feature"><span class="pricing-feature-check">✓</span> Any instrument offered</div>
+          <div class="pricing-feature"><span class="pricing-feature-check">✓</span> No commitment required</div>
+        </div>
+        <div class="pricing-cta">
+          <a href="#contact" class="btn btn-outline btn-full">Book a Session</a>
+        </div>
+      </div>
+
+      <div class="pricing-card featured reveal reveal-delay-1">
+        <div class="pricing-badge">Most Popular</div>
+        <div class="pricing-icon">⭐</div>
+        <div class="pricing-name">Monthly Package</div>
+        <div class="pricing-desc">Weekly lessons on a recurring schedule — the best way to build real progress.</div>
+        <div class="pricing-divider"></div>
+        <div class="pricing-features">
+          <div class="pricing-feature"><span class="pricing-feature-check">✓</span> 4 lessons per month</div>
+          <div class="pricing-feature"><span class="pricing-feature-check">✓</span> Same instructor each week</div>
+          <div class="pricing-feature"><span class="pricing-feature-check">✓</span> Progress tracking &amp; goals</div>
+          <div class="pricing-feature"><span class="pricing-feature-check">✓</span> Flexible makeup policy</div>
+          <div class="pricing-feature"><span class="pricing-feature-check">✓</span> Month-to-month, no contracts</div>
+        </div>
+        <div class="pricing-cta">
+          <a href="#contact" class="btn btn-primary btn-full">Get Started</a>
+        </div>
+      </div>
+
+      <div class="pricing-card reveal reveal-delay-2">
+        <div class="pricing-icon">👨‍👩‍👧</div>
+        <div class="pricing-name">Family Plan</div>
+        <div class="pricing-desc">Multiple students in one household — ask about our multi-student discount.</div>
+        <div class="pricing-divider"></div>
+        <div class="pricing-features">
+          <div class="pricing-feature"><span class="pricing-feature-check">✓</span> 2+ students, mixed instruments</div>
+          <div class="pricing-feature"><span class="pricing-feature-check">✓</span> Coordinated scheduling</div>
+          <div class="pricing-feature"><span class="pricing-feature-check">✓</span> In-home option available</div>
+          <div class="pricing-feature"><span class="pricing-feature-check">✓</span> Custom pricing for your family</div>
+        </div>
+        <div class="pricing-cta">
+          <a href="#contact" class="btn btn-outline btn-full">Ask About This</a>
+        </div>
+      </div>
+
+    </div>
+    <p class="pricing-note reveal">📞 Call or text <a href="tel:+14705962475" style="color:var(--sage);font-weight:600">(470) 596-2475</a> to discuss rates and availability.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- TESTIMONIALS                                                        -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<section id="testimonials" class="section">
+  <div class="container">
+    <div class="section-header section-header-centered reveal">
+      <p class="eyebrow">What Families Say</p>
+      <h2 class="display-lg mt-sm">Student Reviews</h2>
+      <div class="gold-rule mt-md" style="margin:16px auto 0"></div>
+    </div>
+  </div>
+
+  <div class="container" style="overflow:visible">
+    <div class="testimonials-track-wrap reveal" id="tWrap">
+      <div class="testimonials-track" id="tTrack">
+
+        <div class="testimonial-card">
+          <div class="testimonial-quote-mark">"</div>
+          <div class="testimonial-stars">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          </div>
+          <p class="testimonial-text">My kids are having a great time learning the drums! Zack has introduced them to different percussion instruments from around the world and the history behind them. He reaches them at their level through their favorite songs. I am extremely pleased with their progress.</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">F</div>
+            <div>
+              <div class="testimonial-name">Frances R.</div>
+              <div class="testimonial-detail">Drum student parent</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="testimonial-quote-mark">"</div>
+          <div class="testimonial-stars">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          </div>
+          <p class="testimonial-text">Zack is an exceptional instructor. We cannot believe how much our son has improved under his direction. Zack has not only taught him to play well but has also instilled a genuine love for learning new music.</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">C</div>
+            <div>
+              <div class="testimonial-name">Callie &amp; Travis H.</div>
+              <div class="testimonial-detail">Drum student parents</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="testimonial-quote-mark">"</div>
+          <div class="testimonial-stars">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          </div>
+          <p class="testimonial-text">My son went from asking to cancel his weekly lesson to looking forward to lesson days — and developed a newfound love of practicing. Zack is phenomenal. He really takes the time to learn about the student and connect with them as a person.</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">A</div>
+            <div>
+              <div class="testimonial-name">Amy H.</div>
+              <div class="testimonial-detail">Drum student parent</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="testimonial-quote-mark">"</div>
+          <div class="testimonial-stars">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          </div>
+          <p class="testimonial-text">I found Zack through Google and he's been helping me for over a year. I took up percussion late in life but Zack has made the experience awesome — always challenging me with new and interesting aspects. Not only a great teacher but a great, easygoing person.</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">J</div>
+            <div>
+              <div class="testimonial-name">Jim V.</div>
+              <div class="testimonial-detail">Adult percussion student</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="testimonial-quote-mark">"</div>
+          <div class="testimonial-stars">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          </div>
+          <p class="testimonial-text">Zack is an excellent music teacher! My sons have been taking guitar lessons with him for close to a year and they absolutely love him. He is so patient with younger children and does a wonderful job keeping them engaged and focused. We love him and recommend him to everyone.</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">J</div>
+            <div>
+              <div class="testimonial-name">Jill S.</div>
+              <div class="testimonial-detail">Guitar student parent</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="testimonials-nav">
+      <button class="t-btn" id="tPrev" aria-label="Previous">&#8592;</button>
+      <div class="t-dot active" data-i="0"></div>
+      <div class="t-dot" data-i="1"></div>
+      <div class="t-dot" data-i="2"></div>
+      <div class="t-dot" data-i="3"></div>
+      <div class="t-dot" data-i="4"></div>
+      <button class="t-btn" id="tNext" aria-label="Next">&#8594;</button>
+    </div>
+
+    <div class="google-link-wrap reveal">
+      <a href="https://maps.app.goo.gl/J9YgN8NYvvnwYoCG8" target="_blank" rel="noopener" class="google-link">
+        ⭐ See all reviews on Google →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- CTA BAND                                                            -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div id="cta-band">
+  <div class="cta-band-bg"></div>
+  <div class="container">
+    <div class="cta-band-content reveal">
+      <p class="eyebrow" style="color:var(--gold)">Ready to Begin?</p>
+      <h2 class="display-lg mt-sm">Your First Lesson Is On Us</h2>
+      <p class="mt-md">No commitment, no pressure — just a chance to meet your instructor and start making music.</p>
+      <div class="cta-band-btns">
+        <a href="#contact" class="btn btn-primary">Book a Free Intro Lesson</a>
+        <a href="tel:+14705962475" class="btn btn-secondary">Call (470) 596-2475</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- CONTACT                                                             -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<section id="contact" class="section section--cream-dark">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="eyebrow">Get In Touch</p>
+      <h2 class="display-lg mt-sm">Let's Talk Music</h2>
+      <div class="gold-rule mt-md"></div>
+    </div>
+
+    <div class="contact-grid">
+      <div>
+        <div class="contact-cards">
+          <div class="contact-card reveal">
+            <div class="contact-card-icon">📞</div>
+            <div>
+              <div class="contact-card-label">Call or Text</div>
+              <div class="contact-card-value"><a href="tel:+14705962475">(470) 596-2475</a></div>
+            </div>
+          </div>
+          <div class="contact-card reveal reveal-delay-1">
+            <div class="contact-card-icon">✉️</div>
+            <div>
+              <div class="contact-card-label">Email</div>
+              <div class="contact-card-value"><a href="mailto:zbmusiclessons@gmail.com">zbmusiclessons@gmail.com</a></div>
+            </div>
+          </div>
+          <div class="contact-card reveal reveal-delay-2">
+            <div class="contact-card-icon">📍</div>
+            <div>
+              <div class="contact-card-label">Studio Address</div>
+              <div class="contact-card-value">308 N Clayton Street<br>Lawrenceville, GA 30046</div>
+            </div>
+          </div>
+          <div class="contact-card reveal reveal-delay-3">
+            <div class="contact-card-icon">💻</div>
+            <div>
+              <div class="contact-card-label">Formats Available</div>
+              <div class="contact-card-value">Studio · Online · In-Home</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal" style="margin-top:24px">
+          <div style="background:var(--cream);border-radius:var(--radius-md);padding:20px;border:1px solid var(--cream-dark)">
+            <p class="eyebrow">Follow Along</p>
+            <div style="display:flex;gap:12px;margin-top:12px">
+              <a href="https://www.facebook.com/ZBolandDrums" target="_blank" rel="noopener"
+                 style="display:flex;align-items:center;gap:8px;font-size:0.88rem;font-weight:500;color:var(--ink-soft);padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--cream-dark);transition:all 0.3s">
+                📘 Facebook
+              </a>
+              <a href="https://www.instagram.com/zackbolandmusiclessons/" target="_blank" rel="noopener"
+                 style="display:flex;align-items:center;gap:8px;font-size:0.88rem;font-weight:500;color:var(--ink-soft);padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--cream-dark);transition:all 0.3s">
+                📷 Instagram
+              </a>
+              <a href="https://www.youtube.com/channel/UCIXfhidXczK9a59lhN6McvQ" target="_blank" rel="noopener"
+                 style="display:flex;align-items:center;gap:8px;font-size:0.88rem;font-weight:500;color:var(--ink-soft);padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--cream-dark);transition:all 0.3s">
+                ▶️ YouTube
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-form reveal reveal-delay-1">
+        <h3>Send a Message</h3>
+        <p>We'll get back to you within one business day.</p>
+        <div class="form-fields">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fname">First Name</label>
+              <input type="text" id="fname" placeholder="Jane" autocomplete="given-name" />
+            </div>
+            <div class="form-group">
+              <label for="lname">Last Name</label>
+              <input type="text" id="lname" placeholder="Smith" autocomplete="family-name" />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" placeholder="jane@example.com" autocomplete="email" />
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone (optional)</label>
+              <input type="tel" id="phone" placeholder="(470) 555-0100" autocomplete="tel" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="instrument">Instrument of Interest</label>
+            <select id="instrument">
+              <option value="">Select an instrument…</option>
+              <option>Drums &amp; Percussion</option>
+              <option>Guitar (Electric / Acoustic / Bass)</option>
+              <option>Piano &amp; Keyboard</option>
+              <option>Vocals</option>
+              <option>Flute</option>
+              <option>Alto Saxophone</option>
+              <option>Cello or Upright Bass</option>
+              <option>Not sure yet</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="format">Preferred Format</label>
+            <select id="format">
+              <option value="">Select a format…</option>
+              <option>Studio (Lawrenceville)</option>
+              <option>Online</option>
+              <option>In-Home</option>
+              <option>Not sure yet</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" placeholder="Tell us a bit about yourself or your student, skill level, availability, or any questions…"></textarea>
+          </div>
+          <div class="form-submit-row">
+            <button class="btn btn-primary btn-full" id="submitBtn" onclick="handleSubmit()">
+              Send Message →
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- FOOTER                                                              -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<footer id="footer">
+  <div class="container">
+    <div class="footer-top">
+
+      <div>
+        <div class="footer-brand-mark">ZBML</div>
+        <div class="footer-brand-sub">Zack Boland Music Lessons</div>
+        <p class="footer-brand-desc">Northeast Atlanta's original in-home and studio music school. Serving families and adult learners since 2008.</p>
+        <div class="footer-socials">
+          <a href="https://www.facebook.com/ZBolandDrums" target="_blank" rel="noopener" class="social-btn" aria-label="Facebook">f</a>
+          <a href="https://www.instagram.com/zackbolandmusiclessons/" target="_blank" rel="noopener" class="social-btn" aria-label="Instagram">ig</a>
+          <a href="https://www.youtube.com/channel/UCIXfhidXczK9a59lhN6McvQ" target="_blank" rel="noopener" class="social-btn" aria-label="YouTube">yt</a>
+        </div>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Navigate</div>
+        <ul class="footer-links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#lessons">Lessons</a></li>
+          <li><a href="#instructors">Instructors</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#testimonials">Reviews</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Instruments</div>
+        <ul class="footer-links">
+          <li><a href="#lessons">Drums &amp; Percussion</a></li>
+          <li><a href="#lessons">Guitar</a></li>
+          <li><a href="#lessons">Piano &amp; Keyboard</a></li>
+          <li><a href="#lessons">Vocals</a></li>
+          <li><a href="#lessons">Flute &amp; Saxophone</a></li>
+          <li><a href="#lessons">Cello &amp; Bass</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <div class="footer-contact-item">
+          <span class="footer-contact-icon">📞</span>
+          <a href="tel:+14705962475">(470) 596-2475</a>
+        </div>
+        <div class="footer-contact-item">
+          <span class="footer-contact-icon">✉️</span>
+          <a href="mailto:zbmusiclessons@gmail.com">zbmusiclessons@gmail.com</a>
+        </div>
+        <div class="footer-contact-item">
+          <span class="footer-contact-icon">📍</span>
+          <span>308 N Clayton St<br>Lawrenceville, GA 30046</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <p>© <span id="year"></span> Zack Boland Music Lessons · All Rights Reserved</p>
+      <p>Northeast Atlanta's Original In-Home &amp; Online Music School</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Phone strip (mobile only) -->
+<div id="phone-strip">
+  <span>📞</span>
+  <a href="tel:+14705962475">(470) 596-2475 — Call or Text</a>
+  <button class="close-strip" onclick="document.getElementById('phone-strip').style.display='none'" aria-label="Close">✕</button>
+</div>
+
+<!-- Toast notification -->
+<div id="toast"></div>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- JAVASCRIPT                                                          -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<script>
+  /* ── Year ─────────────────────────────────────────────────────────── */
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  /* ── Nav scroll behavior ──────────────────────────────────────────── */
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive: true });
+
+  /* ── Hamburger menu ───────────────────────────────────────────────── */
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  hamburger.addEventListener('click', () => {
+    const open = hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+  function closeMenu() {
+    hamburger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  /* ── Scroll reveal ────────────────────────────────────────────────── */
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+  /* ── Testimonial carousel ─────────────────────────────────────────── */
+  const track = document.getElementById('tTrack');
+  const wrap  = document.getElementById('tWrap');
+  const dots  = document.querySelectorAll('.t-dot');
+  const cards = track.querySelectorAll('.testimonial-card');
+  let current = 0;
+
+  function getCardWidth() {
+    return cards[0].getBoundingClientRect().width + 20;
+  }
+  function goTo(i) {
+    current = Math.max(0, Math.min(i, cards.length - 1));
+    track.style.transform = `translateX(-${current * getCardWidth()}px)`;
+    dots.forEach((d, idx) => d.classList.toggle('active', idx === current));
+  }
+  document.getElementById('tNext').addEventListener('click', () => goTo(current < cards.length - 1 ? current + 1 : 0));
+  document.getElementById('tPrev').addEventListener('click', () => goTo(current > 0 ? current - 1 : cards.length - 1));
+  dots.forEach(d => d.addEventListener('click', () => goTo(+d.dataset.i)));
+  window.addEventListener('resize', () => goTo(current), { passive: true });
+
+  // Touch/drag support
+  let dragStart = null, dragDelta = 0;
+  wrap.addEventListener('touchstart', e => { dragStart = e.touches[0].clientX; }, { passive: true });
+  wrap.addEventListener('touchmove', e => {
+    if (dragStart === null) return;
+    dragDelta = e.touches[0].clientX - dragStart;
+  }, { passive: true });
+  wrap.addEventListener('touchend', () => {
+    if (Math.abs(dragDelta) > 50) goTo(dragDelta < 0 ? current + 1 : current - 1);
+    dragStart = null; dragDelta = 0;
+  });
+
+  // Auto-advance
+  let autoPlay = setInterval(() => goTo(current < cards.length - 1 ? current + 1 : 0), 6000);
+  wrap.addEventListener('touchstart', () => clearInterval(autoPlay), { passive: true });
+
+  /* ── Toast ────────────────────────────────────────────────────────── */
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3200);
+  }
+
+  /* ── Form submission ──────────────────────────────────────────────── */
+  // ┌─────────────────────────────────────────────────────────────────┐
+  // │ CONFIGURE THESE TWO VALUES before deploying:                    │
+  // │  GITHUB_USERNAME  — your GitHub username                        │
+  // │  GITHUB_REPO      — the repository name (e.g. zbml-website)    │
+  // │  GITHUB_PAT       — fine-scoped PAT with public_repo scope only │
+  // └─────────────────────────────────────────────────────────────────┘
+  const GITHUB_USERNAME = 'YOUR_GITHUB_USERNAME';
+  const GITHUB_REPO     = 'YOUR_REPO_NAME';
+  const GITHUB_PAT      = 'YOUR_FINE_SCOPED_PAT';
+
+  async function handleSubmit() {
+    const fname      = document.getElementById('fname').value.trim();
+    const lname      = document.getElementById('lname').value.trim();
+    const email      = document.getElementById('email').value.trim();
+    const phone      = document.getElementById('phone').value.trim();
+    const instrument = document.getElementById('instrument').value;
+    const format     = document.getElementById('format').value;
+    const message    = document.getElementById('message').value.trim();
+
+    // ── Validation ────────────────────────────────────────────────────
+    if (!fname)                        { showToast('Please enter your first name.');        return; }
+    if (!email || !email.includes('@')) { showToast('Please enter a valid email address.'); return; }
+    if (!instrument)                   { showToast('Please select an instrument.');         return; }
+
+    const btn = document.getElementById('submitBtn');
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+
+    try {
+      const res = await fetch(
+        `https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/dispatches`,
+        {
+          method: 'POST',
+          headers: {
+            'Accept':        'application/vnd.github.v3+json',
+            'Authorization': `token ${GITHUB_PAT}`,
+            'Content-Type':  'application/json'
+          },
+          body: JSON.stringify({
+            event_type: 'contact_form_submission',
+            client_payload: {
+              name:       `${fname} ${lname}`.trim(),
+              email:      email,
+              phone:      phone  || 'Not provided',
+              instrument: instrument,
+              format:     format || 'Not specified',
+              message:    message || 'No message provided',
+              submitted:  new Date().toLocaleString('en-US', { timeZone: 'America/New_York' })
+            }
+          })
+        }
+      );
+
+      // GitHub returns 204 No Content on success
+      if (res.status === 204) {
+        btn.textContent = '✓ Message Sent!';
+        btn.style.background = 'var(--sage)';
+        showToast("Message sent! We'll be in touch soon.");
+        ['fname','lname','email','phone','message'].forEach(id => {
+          document.getElementById(id).value = '';
+        });
+        document.getElementById('instrument').selectedIndex = 0;
+        document.getElementById('format').selectedIndex = 0;
+      } else {
+        throw new Error(`GitHub API returned ${res.status}`);
+      }
+
+    } catch (err) {
+      console.error('Submission error:', err);
+      btn.textContent = 'Send Message →';
+      btn.disabled = false;
+      showToast('Something went wrong — please call us directly at (470) 596-2475.');
+    }
+  }
+
+  /* ── Trigger hero reveals immediately ────────────────────────────── */
+  window.addEventListener('load', () => {
+    document.querySelectorAll('#hero .reveal').forEach((el, i) => {
+      setTimeout(() => el.classList.add('visible'), i * 120);
+    });
+  });
+</script>
+
+</body>
+</html>
