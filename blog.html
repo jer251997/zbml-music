@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog & News — Zack Boland Music Lessons</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink:        #1A0F2E;
+      --ink-soft:   #3D2F5A;
+      --ink-muted:  #7A6E96;
+      --cream:      #F7F5FC;
+      --cream-dark: #EDE8F7;
+      --gold:       #2D7A50;
+      --gold-light: #4AB872;
+      --gold-pale:  #E5F5EC;
+      --sage:       #6B4FA8;
+      --sage-pale:  #EDE6FA;
+      --white:      #FFFFFF;
+      --ff-display: 'Cormorant Garamond', Georgia, serif;
+      --ff-body:    'DM Sans', sans-serif;
+      --radius-sm:  6px;
+      --radius-md:  12px;
+      --radius-lg:  20px;
+      --shadow-sm:  0 1px 4px rgba(26,15,46,0.10);
+      --shadow-md:  0 4px 20px rgba(26,15,46,0.13);
+      --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--ff-body); background: var(--cream); color: var(--ink); line-height: 1.6; overflow-x: hidden; }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; border: none; background: none; font-family: inherit; }
+    ul { list-style: none; }
+    img { display: block; max-width: 100%; }
+    .container { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+    .eyebrow { font-family: var(--ff-body); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); }
+
+    /* ── NAV ─────────────────────────────────────────────────── */
+    #nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(26,15,46,0.95); backdrop-filter: blur(12px); box-shadow: 0 1px 0 rgba(255,255,255,0.06); }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .nav-logo { display: flex; flex-direction: column; gap: 1px; }
+    .nav-logo-mark { font-family: var(--ff-display); font-size: 1.25rem; font-weight: 700; color: var(--white); letter-spacing: 0.04em; line-height: 1; }
+    .nav-logo-sub { font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-light); font-weight: 500; }
+    .nav-links { display: none; gap: 28px; align-items: center; }
+    .nav-links a { color: rgba(255,255,255,0.82); font-size: 0.88rem; font-weight: 500; transition: color var(--transition); }
+    .nav-links a:hover, .nav-links a.active { color: var(--white); }
+    .nav-cta { display: none; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; padding: 14px 28px; border-radius: var(--radius-sm); font-family: var(--ff-body); font-size: 0.92rem; font-weight: 600; transition: var(--transition); white-space: nowrap; }
+    .btn-primary { background: var(--gold); color: var(--white); box-shadow: 0 2px 12px rgba(45,122,80,0.35); }
+    .btn-primary:hover { background: #256642; transform: translateY(-1px); }
+    .btn-sm { padding: 10px 20px; font-size: 0.84rem; }
+    .hamburger { width: 36px; height: 36px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; cursor: pointer; }
+    .hamburger span { display: block; width: 22px; height: 1.5px; background: var(--white); border-radius: 2px; transition: var(--transition); }
+    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+    #mobile-menu { position: fixed; inset: 0; background: var(--ink); z-index: 99; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+    #mobile-menu.open { opacity: 1; pointer-events: all; }
+    #mobile-menu a { font-family: var(--ff-display); font-size: 2rem; font-weight: 500; color: var(--cream); padding: 8px 20px; transition: color var(--transition); }
+    #mobile-menu a:hover { color: var(--gold-light); }
+    .mobile-menu-cta { margin-top: 20px; }
+    @media (min-width: 768px) { .nav-links { display: flex; } .nav-cta { display: inline-flex; } .hamburger { display: none; } }
+
+    /* ── PAGE HEADER ──────────────────────────────────────────── */
+    .page-header { background: var(--ink); padding: 120px 0 64px; position: relative; overflow: hidden; }
+    .page-header-bg {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 25% 60%, rgba(45,122,80,0.13) 0%, transparent 55%),
+                  radial-gradient(ellipse at 80% 20%, rgba(107,79,168,0.10) 0%, transparent 50%);
+    }
+    .page-header-content { position: relative; z-index: 1; }
+    .page-header h1 { font-family: var(--ff-display); font-size: clamp(2.4rem, 6vw, 4rem); font-weight: 600; color: var(--cream); line-height: 1.1; margin-top: 12px; }
+    .page-header p { font-size: 1rem; color: rgba(250,247,242,0.62); margin-top: 14px; max-width: 500px; line-height: 1.65; }
+
+    /* ── FILTER BAR ───────────────────────────────────────────── */
+    .filter-wrap { padding: 36px 0 0; }
+    .filter-bar { display: flex; flex-wrap: wrap; gap: 10px; }
+    .filter-btn { padding: 8px 18px; border-radius: 100px; font-size: 0.82rem; font-weight: 600; letter-spacing: 0.04em; cursor: pointer; transition: var(--transition); border: 1.5px solid var(--cream-dark); background: var(--white); color: var(--ink-soft); }
+    .filter-btn:hover { border-color: var(--gold); color: var(--gold); }
+    .filter-btn.active { background: var(--gold); border-color: var(--gold); color: var(--white); }
+
+    /* ── BLOG GRID ────────────────────────────────────────────── */
+    .blog-section { padding: 40px 0 88px; }
+    .blog-grid { display: grid; grid-template-columns: 1fr; gap: 28px; }
+    @media (min-width: 600px) { .blog-grid { grid-template-columns: 1fr 1fr; } }
+    @media (min-width: 900px) { .blog-grid { grid-template-columns: 1fr 1fr 1fr; } }
+
+    .post-card { background: var(--white); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-sm); transition: box-shadow var(--transition), transform var(--transition); display: flex; flex-direction: column; }
+    .post-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
+    .post-card-img { width: 100%; aspect-ratio: 16/9; background: linear-gradient(135deg, #2d1a4e, #1a0f2e); display: flex; align-items: center; justify-content: center; font-size: 2.8rem; flex-shrink: 0; overflow: hidden; }
+    .post-card-img img { width: 100%; height: 100%; object-fit: cover; }
+    .post-card-body { padding: 22px 20px; flex: 1; display: flex; flex-direction: column; }
+    .post-card-category { display: inline-block; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+    .post-card-title { font-family: var(--ff-display); font-size: 1.22rem; font-weight: 600; line-height: 1.25; color: var(--ink); }
+    .post-card-excerpt { font-size: 0.88rem; color: var(--ink-soft); line-height: 1.65; margin-top: 10px; flex: 1; }
+    .post-card-meta { display: flex; align-items: center; gap: 10px; margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--cream-dark); }
+    .post-card-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--gold-pale); display: flex; align-items: center; justify-content: center; font-family: var(--ff-display); font-size: 0.9rem; font-weight: 700; color: var(--gold); flex-shrink: 0; }
+    .post-card-author { font-size: 0.8rem; font-weight: 600; color: var(--ink); }
+    .post-card-date { font-size: 0.75rem; color: var(--ink-muted); margin-top: 1px; }
+    .post-card-read-more { display: inline-flex; align-items: center; gap: 6px; font-size: 0.82rem; font-weight: 600; color: var(--gold); margin-top: 14px; transition: gap var(--transition); }
+    .post-card:hover .post-card-read-more { gap: 10px; }
+    .no-results { grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: var(--ink-muted); font-size: 0.95rem; }
+
+    /* ── REVEAL ───────────────────────────────────────────────── */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+
+    /* ── FOOTER ───────────────────────────────────────────────── */
+    #footer { background: #0e0819; padding: 48px 0 28px; margin-top: 0; }
+    .footer-inner { text-align: center; padding-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,0.07); margin-bottom: 24px; }
+    .footer-logo { font-family: var(--ff-display); font-size: 1.6rem; font-weight: 700; color: var(--cream); }
+    .footer-tagline { font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); margin-top: 4px; margin-bottom: 20px; }
+    .footer-nav { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; }
+    .footer-nav a { font-size: 0.84rem; color: rgba(250,247,242,0.55); transition: color var(--transition); }
+    .footer-nav a:hover { color: var(--cream); }
+    .footer-bottom { text-align: center; }
+    .footer-bottom p { font-size: 0.78rem; color: rgba(250,247,242,0.28); margin-top: 4px; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">
+        <div class="nav-logo-mark">ZBML</div>
+        <div class="nav-logo-sub">Music Lessons</div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="/#about">About</a></li>
+        <li><a href="/#lessons">Lessons</a></li>
+        <li><a href="/#instructors">Instructors</a></li>
+        <li><a href="/#testimonials">Reviews</a></li>
+        <li><a href="/blog" class="active">Blog</a></li>
+        <li><a href="/#contact">Contact</a></li>
+      </ul>
+      <a href="/#contact" class="btn btn-primary btn-sm nav-cta">Book a Lesson</a>
+      <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile menu -->
+<div id="mobile-menu">
+  <a href="/#about"        onclick="closeMenu()">About</a>
+  <a href="/#lessons"      onclick="closeMenu()">Lessons</a>
+  <a href="/#instructors"  onclick="closeMenu()">Instructors</a>
+  <a href="/#testimonials" onclick="closeMenu()">Reviews</a>
+  <a href="/blog"          onclick="closeMenu()">Blog</a>
+  <a href="/#contact"      onclick="closeMenu()">Contact</a>
+  <div class="mobile-menu-cta">
+    <a href="/#contact" class="btn btn-primary" onclick="closeMenu()">Book a Free Intro Lesson</a>
+  </div>
+</div>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="page-header-bg"></div>
+  <div class="container">
+    <div class="page-header-content">
+      <p class="eyebrow">From the Studio</p>
+      <h1>Blog &amp; News</h1>
+      <p>Studio updates, music tips, student highlights, and everything in between from the ZBML team.</p>
+    </div>
+  </div>
+</div>
+
+<!-- FILTER + GRID -->
+<div class="filter-wrap">
+  <div class="container">
+    <div class="filter-bar">
+      <button class="filter-btn active" data-filter="all">All Posts</button>
+      <button class="filter-btn" data-filter="studio-news">Studio News</button>
+      <button class="filter-btn" data-filter="music-tips">Music Tips</button>
+      <button class="filter-btn" data-filter="gear">Gear</button>
+      <button class="filter-btn" data-filter="highlights">Highlights</button>
+    </div>
+  </div>
+</div>
+
+<div class="blog-section">
+  <div class="container">
+    <div class="blog-grid" id="blogGrid">
+
+      <a href="/posts/looking-for-a-new-or-used-instrument.html" class="post-card reveal" data-category="studio-news">
+        <div class="post-card-img">🎸</div>
+        <div class="post-card-body">
+          <span class="post-card-category">Studio News</span>
+          <div class="post-card-title">Looking for a New or Used Instrument? Look No Further!</div>
+          <p class="post-card-excerpt">Visiting my friends at Music Go Round in Duluth reminded me to share their info. Top-notch staff, excellent used gear, and owners I've known for over a decade.</p>
+          <div class="post-card-meta">
+            <div class="post-card-avatar">Z</div>
+            <div>
+              <div class="post-card-author">Zack Boland</div>
+              <div class="post-card-date">March 2, 2020</div>
+            </div>
+          </div>
+          <span class="post-card-read-more">Read post →</span>
+        </div>
+      </a>
+
+      <a href="/posts/team-building-with-percussion-at-gsu.html" class="post-card reveal reveal-delay-1" data-category="highlights">
+        <div class="post-card-img">🥁</div>
+        <div class="post-card-body">
+          <span class="post-card-category">Highlights</span>
+          <div class="post-card-title">Team Building with Percussion at GSU!</div>
+          <p class="post-card-excerpt">Leading a percussion ice-breaker for GSU's CIBER International Business Case Competition was a ton of fun — definitely not your parents' drum circle.</p>
+          <div class="post-card-meta">
+            <div class="post-card-avatar">Z</div>
+            <div>
+              <div class="post-card-author">Zack Boland</div>
+              <div class="post-card-date">February 28, 2020</div>
+            </div>
+          </div>
+          <span class="post-card-read-more">Read post →</span>
+        </div>
+      </a>
+
+      <a href="/posts/dream-cymbals.html" class="post-card reveal reveal-delay-2" data-category="gear">
+        <div class="post-card-img">🎶</div>
+        <div class="post-card-body">
+          <span class="post-card-category">Gear</span>
+          <div class="post-card-title">I'm Very Proud to Play... Dream Cymbals!</div>
+          <p class="post-card-excerpt">I'm not much of a gear snob, so it takes something truly impressive to make me switch things up. The Dream Bliss series absolutely did it.</p>
+          <div class="post-card-meta">
+            <div class="post-card-avatar">Z</div>
+            <div>
+              <div class="post-card-author">Zack Boland</div>
+              <div class="post-card-date">January 20, 2020</div>
+            </div>
+          </div>
+          <span class="post-card-read-more">Read post →</span>
+        </div>
+      </a>
+
+      <a href="/posts/hellacopters-ice-drum-set.html" class="post-card reveal" data-category="highlights">
+        <div class="post-card-img">🧊</div>
+        <div class="post-card-body">
+          <span class="post-card-category">Highlights</span>
+          <div class="post-card-title">Hellacopters Drummer Trashes Ice Drum Set</div>
+          <p class="post-card-excerpt">This video has been around for a while but it never gets old. A holiday treat for drummers everywhere — and a moment of silence for the kit.</p>
+          <div class="post-card-meta">
+            <div class="post-card-avatar">Z</div>
+            <div>
+              <div class="post-card-author">Zack Boland</div>
+              <div class="post-card-date">December 25, 2019</div>
+            </div>
+          </div>
+          <span class="post-card-read-more">Read post →</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer id="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-logo">ZBML</div>
+      <div class="footer-tagline">Zack Boland Music Lessons</div>
+      <nav class="footer-nav">
+        <a href="/">Home</a>
+        <a href="/#about">About</a>
+        <a href="/#lessons">Lessons</a>
+        <a href="/#instructors">Instructors</a>
+        <a href="/#pricing">Pricing</a>
+        <a href="/#testimonials">Reviews</a>
+        <a href="/blog">Blog</a>
+        <a href="/#contact">Contact</a>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <p>© <span id="year"></span> Zack Boland Music Lessons · All Rights Reserved</p>
+      <p>Northeast Atlanta's Original In-Home &amp; Online Music School</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  hamburger.addEventListener('click', () => {
+    const open = hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+  function closeMenu() {
+    hamburger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Category filter
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      document.querySelectorAll('.post-card').forEach(card => {
+        card.style.display = (filter === 'all' || card.dataset.category === filter) ? 'flex' : 'none';
+      });
+    });
+  });
+</script>
+</body>
+</html>
