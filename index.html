@@ -302,7 +302,8 @@
       inset: 0;
       background:
         linear-gradient(to bottom, rgba(26,15,46,0.35) 0%, rgba(26,15,46,0.75) 65%, rgba(26,15,46,0.92) 100%),
-        /* Purple-dark gradient as image placeholder */
+        /* Replace the radial-gradient below with your hero photo once uploaded:    */
+        /* url('images/hero.jpg') center/cover no-repeat                            */
         radial-gradient(ellipse at 30% 40%, #2d1a4e 0%, #1a0f2e 40%, #0d0819 100%);
       background-size: cover;
       background-position: center;
@@ -452,6 +453,17 @@
       align-items: center;
       justify-content: center;
       overflow: hidden;
+      position: relative;
+    }
+    /* When a real photo is present the placeholder icon hides automatically */
+    .about-img-placeholder img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+      border-radius: var(--radius-lg);
     }
     .about-img-inner {
       text-align: center;
@@ -749,6 +761,9 @@
       margin-top: 40px;
       cursor: grab;
       user-select: none;
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
     }
     .testimonials-track-wrap:active { cursor: grabbing; }
     .testimonials-track {
@@ -757,13 +772,19 @@
       transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
     }
     .testimonial-card {
-      min-width: calc(100vw - 56px);
+      width: calc(100vw - 56px);
+      max-width: 100%;
+      min-width: 0;
+      flex-shrink: 0;
       background: var(--white);
       border-radius: var(--radius-lg);
       padding: 28px 24px;
       box-shadow: var(--shadow-sm);
-      flex-shrink: 0;
       position: relative;
+      box-sizing: border-box;
+      overflow: hidden;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
     }
     .testimonial-quote-mark {
       font-family: var(--ff-display);
@@ -788,6 +809,8 @@
       color: var(--ink-soft);
       position: relative;
       z-index: 1;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
     }
     .testimonial-author {
       margin-top: 20px;
@@ -854,7 +877,7 @@
     }
     .google-link:hover { border-color: var(--gold); }
     @media (min-width: 600px) {
-      .testimonial-card { min-width: 360px; }
+      .testimonial-card { width: 360px; max-width: 360px; }
     }
 
     /* ─── CTA BAND ───────────────────────────────────────────────────── */
@@ -1226,9 +1249,13 @@
 
       <div class="about-img-wrap reveal">
         <div class="about-img-placeholder">
+          <!-- Photo will display here once uploaded to images/about-zack.jpg -->
+          <img src="images/about-zack.jpg"
+               alt="Zack Boland, Founder of Zack Boland Music Lessons"
+               onerror="this.style.display='none'" />
           <div class="about-img-inner">
             <div class="about-img-placeholder-icon">🥁</div>
-            <p class="photo-note">Zack Boland photo</p>
+            <p class="photo-note">Add images/about-zack.jpg to show photo</p>
           </div>
         </div>
         <div class="about-accent-card">
@@ -1623,7 +1650,7 @@
 <!-- ═══════════════════════════════════════════════════════════════════ -->
 <!-- TESTIMONIALS                                                        -->
 <!-- ═══════════════════════════════════════════════════════════════════ -->
-<section id="testimonials" class="section">
+<section id="testimonials" class="section" style="overflow:hidden;">
   <div class="container">
     <div class="section-header section-header-centered reveal">
       <p class="eyebrow">What Families Say</p>
