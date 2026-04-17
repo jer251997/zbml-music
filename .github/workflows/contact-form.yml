@@ -1,0 +1,59 @@
+name: Contact Form — Send Email Notification
+
+# ─────────────────────────────────────────────────────────────────────
+# Triggered by the repository_dispatch event fired from the contact
+# form on the website. The form POSTs to the GitHub API dispatches
+# endpoint, which starts this workflow with the form data attached
+# as client_payload.
+# ─────────────────────────────────────────────────────────────────────
+on:
+  repository_dispatch:
+    types: [contact_form_submission]
+
+jobs:
+  send-email:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Send inquiry email to Zack
+        uses: dawidd6/action-send-mail@v3
+        with:
+          # ── Gmail SMTP server ──────────────────────────────────────
+          server_address: smtp.gmail.com
+          server_port:    587
+          secure:         false          # uses STARTTLS on port 587
+
+          # ── Credentials — stored in repo Secrets, never in code ───
+          username: ${{ secrets.GMAIL_USER }}
+          password: ${{ secrets.GMAIL_APP_PASSWORD }}
+
+          # ── Email addressing ───────────────────────────────────────
+          # Sends from the Gmail account to itself — Zack sees it in inbox
+          from: ZBML Contact Form <${{ secrets.GMAIL_USER }}>
+          to:   ${{ secrets.GMAIL_USER }}
+
+          # ── Subject includes instrument and name for quick scanning ─
+          subject: >-
+            New Lesson Inquiry — ${{ github.event.client_payload.instrument }}
+            (${{ github.event.client_payload.name }})
+
+          # ── Plain-text email body with all form fields ─────────────
+          body: |
+            A new inquiry was submitted through the ZBML contact form.
+            ─────────────────────────────────────────────────────
+            Name:        ${{ github.event.client_payload.name }}
+            Email:       ${{ github.event.client_payload.email }}
+            Phone:       ${{ github.event.client_payload.phone }}
+            Instrument:  ${{ github.event.client_payload.instrument }}
+            Format:      ${{ github.event.client_payload.format }}
+            Submitted:   ${{ github.event.client_payload.submitted }}
+            ─────────────────────────────────────────────────────
+            Message:
+
+            ${{ github.event.client_payload.message }}
+            ─────────────────────────────────────────────────────
+            Reply directly to this email to respond to the inquiry.
+
+          # ── Reply-To set to the prospective student's email ────────
+          # Zack can hit Reply in Gmail and it goes straight to them
+          reply_to: ${{ github.event.client_payload.email }}
