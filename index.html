@@ -1083,6 +1083,9 @@
 
     /* ─── SECTION HEADER ────────────────────────────────────────────── */
     .section-header { margin-bottom: 8px; }
+    .contact-header { display: flex; align-items: center; gap: 32px; flex-wrap: wrap; margin-bottom: 8px; }
+    .contact-header .section-header { margin-bottom: 0; flex: 1; min-width: 220px; }
+    .contact-header-gif { max-height: 200px; width: auto; flex-shrink: 0; border-radius: var(--radius-md); }
     .section-header-centered { text-align: center; }
     .section-header-centered .gold-rule { margin: 12px auto 0; }
 
@@ -1913,10 +1916,13 @@
 <!-- ═══════════════════════════════════════════════════════════════════ -->
 <section id="contact" class="section section--cream-dark">
   <div class="container">
-    <div class="section-header reveal">
-      <p class="eyebrow">Get In Touch</p>
-      <h2 class="display-lg mt-sm">Let's Talk Music</h2>
-      <div class="gold-rule mt-md"></div>
+    <div class="contact-header reveal">
+      <div class="section-header">
+        <p class="eyebrow">Get In Touch</p>
+        <h2 class="display-lg mt-sm">Let's Talk Music</h2>
+        <div class="gold-rule mt-md"></div>
+      </div>
+      <img src="/zbml-music/assets/animation.gif" alt="Kids playing music" class="contact-header-gif">
     </div>
 
     <div class="contact-grid">
