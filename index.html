@@ -1083,9 +1083,13 @@
 
     /* ─── SECTION HEADER ────────────────────────────────────────────── */
     .section-header { margin-bottom: 8px; }
-    .contact-header { display: flex; align-items: center; gap: 32px; flex-wrap: wrap; margin-bottom: 8px; }
-    .contact-header .section-header { margin-bottom: 0; flex: 1; min-width: 220px; }
-    .contact-header-gif { max-height: 200px; width: auto; flex-shrink: 0; border-radius: var(--radius-md); }
+    .contact-header { display: flex; align-items: center; gap: 24px; margin-bottom: 8px; }
+    .contact-header .section-header { margin-bottom: 0; }
+    .contact-header-gif { max-height: 90px; width: auto; flex-shrink: 0; border-radius: var(--radius-md); }
+    @media (max-width: 599px) {
+      .contact-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+      .contact-header-gif { max-height: 70px; }
+    }
     .section-header-centered { text-align: center; }
     .section-header-centered .gold-rule { margin: 12px auto 0; }
 
