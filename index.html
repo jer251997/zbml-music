@@ -2158,10 +2158,14 @@
   wrap.addEventListener('touchend', () => {
     if (Math.abs(dragDelta) > 50) goTo(dragDelta < 0 ? current + 1 : current - 1);
     dragStart = null; dragDelta = 0;
+    autoPlay = startAutoPlay();
   });
 
   // Auto-advance
-  let autoPlay = setInterval(() => goTo(current < cards.length - 1 ? current + 1 : 0), 6000);
+  function startAutoPlay() {
+    return setInterval(() => goTo(current < cards.length - 1 ? current + 1 : 0), 6000);
+  }
+  let autoPlay = startAutoPlay();
   wrap.addEventListener('touchstart', () => clearInterval(autoPlay), { passive: true });
 
   /* ── Toast ────────────────────────────────────────────────────────── */
