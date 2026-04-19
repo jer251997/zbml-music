@@ -261,7 +261,7 @@
       gap: 8px;
       padding-top: 72px;
       padding-bottom: 24px;
-      overflow-y: auto;
+      overflow-y: hidden;
       box-sizing: border-box;
       opacity: 0;
       pointer-events: none;
@@ -530,16 +530,31 @@
       opacity: 0;
       pointer-events: none;
     }
-    .lesson-card::before { content: '♪'; left: 14px; bottom: 10px; }
-    .lesson-card::after  { content: '♫'; right: 18px; bottom: 18px; }
-    .lesson-card:hover::before { animation: noteFloatLoop 2s ease-in-out infinite; }
-    .lesson-card:hover::after  { animation: noteFloatLoop 2s ease-in-out infinite 1s; }
-    @keyframes noteFloatLoop {
-      0%  { opacity: 0;    transform: translateY(0) rotate(-12deg) scale(1); }
-      8%  { opacity: 0.85; transform: translateY(-4px) rotate(-10deg) scale(1.05); }
-      50% { opacity: 0;    transform: translateY(-52px) rotate(14deg) scale(0.75); }
-      51% { opacity: 0;    transform: translateY(0) rotate(-12deg) scale(1); }
-      100%{ opacity: 0;    transform: translateY(0) rotate(-12deg) scale(1); }
+    .lesson-card::before { content: '♪'; left: 14px;              bottom: 10px; }
+    .lesson-card::after  { content: '♫'; left: calc(100% - 32px); bottom: 18px; }
+    .lesson-card:hover::before { animation: noteBeforeLoop 4s ease-in-out infinite; }
+    .lesson-card:hover::after  { animation: noteAfterLoop  4s ease-in-out infinite 1s; }
+    @keyframes noteBeforeLoop {
+      0%   { opacity: 0;    left: 14px;              transform: translateY(0)    rotate(-12deg) scale(1); }
+      8%   { opacity: 0.85; left: 14px;              transform: translateY(-4px) rotate(-10deg) scale(1.05); }
+      25%  { opacity: 0;    left: 14px;              transform: translateY(-52px) rotate(14deg) scale(0.75); }
+      26%  { opacity: 0;    left: calc(100% - 32px); transform: translateY(0)    rotate(12deg)  scale(1); }
+      50%  { opacity: 0;    left: calc(100% - 32px); transform: translateY(0)    rotate(12deg)  scale(1); }
+      58%  { opacity: 0.85; left: calc(100% - 32px); transform: translateY(-4px) rotate(10deg)  scale(1.05); }
+      75%  { opacity: 0;    left: calc(100% - 32px); transform: translateY(-52px) rotate(-14deg) scale(0.75); }
+      76%  { opacity: 0;    left: 14px;              transform: translateY(0)    rotate(-12deg) scale(1); }
+      100% { opacity: 0;    left: 14px;              transform: translateY(0)    rotate(-12deg) scale(1); }
+    }
+    @keyframes noteAfterLoop {
+      0%   { opacity: 0;    left: calc(100% - 32px); transform: translateY(0)    rotate(12deg)  scale(1); }
+      8%   { opacity: 0.85; left: calc(100% - 32px); transform: translateY(-4px) rotate(10deg)  scale(1.05); }
+      25%  { opacity: 0;    left: calc(100% - 32px); transform: translateY(-52px) rotate(-14deg) scale(0.75); }
+      26%  { opacity: 0;    left: 14px;              transform: translateY(0)    rotate(-12deg) scale(1); }
+      50%  { opacity: 0;    left: 14px;              transform: translateY(0)    rotate(-12deg) scale(1); }
+      58%  { opacity: 0.85; left: 14px;              transform: translateY(-4px) rotate(-10deg) scale(1.05); }
+      75%  { opacity: 0;    left: 14px;              transform: translateY(-52px) rotate(14deg)  scale(0.75); }
+      76%  { opacity: 0;    left: calc(100% - 32px); transform: translateY(0)    rotate(12deg)  scale(1); }
+      100% { opacity: 0;    left: calc(100% - 32px); transform: translateY(0)    rotate(12deg)  scale(1); }
     }
     .lesson-card-icon-col {
       width: 80px;
@@ -606,10 +621,10 @@
       opacity: 0;
       pointer-events: none;
     }
-    .instructor-card::before { content: '♪'; left: 14px; bottom: 10px; }
-    .instructor-card::after  { content: '♫'; right: 18px; bottom: 18px; }
-    .instructor-card:hover::before { animation: noteFloatLoop 2s ease-in-out infinite; }
-    .instructor-card:hover::after  { animation: noteFloatLoop 2s ease-in-out infinite 1s; }
+    .instructor-card::before { content: '♪'; left: 14px;              bottom: 10px; }
+    .instructor-card::after  { content: '♫'; left: calc(100% - 32px); bottom: 18px; }
+    .instructor-card:hover::before { animation: noteBeforeLoop 4s ease-in-out infinite; }
+    .instructor-card:hover::after  { animation: noteAfterLoop  4s ease-in-out infinite 1s; }
     .instructor-img {
       width: 100%;
       aspect-ratio: 4/3;
@@ -758,10 +773,10 @@
       opacity: 0;
       pointer-events: none;
     }
-    .pricing-card::before { content: '♪'; left: 14px; bottom: 10px; }
-    .pricing-card::after  { content: '♫'; right: 18px; bottom: 18px; }
-    .pricing-card:hover::before { animation: noteFloatLoop 2s ease-in-out infinite; }
-    .pricing-card:hover::after  { animation: noteFloatLoop 2s ease-in-out infinite 1s; }
+    .pricing-card::before { content: '♪'; left: 14px;              bottom: 10px; }
+    .pricing-card::after  { content: '♫'; left: calc(100% - 32px); bottom: 18px; }
+    .pricing-card:hover::before { animation: noteBeforeLoop 4s ease-in-out infinite; }
+    .pricing-card:hover::after  { animation: noteAfterLoop  4s ease-in-out infinite 1s; }
     .pricing-card.featured {
       border-color: var(--gold);
       box-shadow: var(--shadow-md);
@@ -2177,6 +2192,7 @@
     const open = hamburger.classList.toggle('open');
     mobileMenu.classList.toggle('open', open);
     document.body.style.overflow = open ? 'hidden' : '';
+    if (open) mobileMenu.scrollTop = 0;
   });
   function closeMenu() {
     hamburger.classList.remove('open');
